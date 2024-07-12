@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Motivasi</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://wallpapercave.com/wp/wp4476615.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        h1 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+        }
+        .message {
+            font-size: 1.5em;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0;
+            color:yellow;
+            transform: translateY(-20px);
+            text-shadow: 2px 2px 5px rgba(0, 0 ,0, 8);
+        }
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 576px) {
+            .message {
+                font-size: 1.2em; /* Ukuran font lebih kecil untuk ponsel */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="display-4">Selamat Datang di Program Motivasi Qeons!</h1>
+        <button id="motivationButton" class="btn btn-danger btn-lg mt-4">Dapatkan Motivasi!</button>
+        <p id="motivationMessage" class="message mt-4"></p>
+    </div>
+    <script>
+        // Daftar pesan motivasi
+        const messages = [
+            "Jangan pernah menyerah!",
+            "Setiap hari adalah kesempatan baru.",
+            "Kamu lebih kuat dari yang kamu kira.",
+            "Keberhasilan adalah hasil dari usaha yang tidak kenal lelah.",
+            "Percayalah pada dirimu sendiri.",
+            "Langkah kecil setiap hari membawa hasil besar di masa depan.",
+            "Kamu adalah pencipta nasibmu sendiri.",
+            "Kegagalan adalah batu loncatan menuju kesuksesan.",
+            "Tetap fokus pada tujuanmu, jangan biarkan halangan menghentikanmu.",
+            "Impianmu tidak akan menjadi kenyataan jika kamu hanya tidur.",
+            "Bersyukurlah atas setiap langkah yang kamu ambil.",
+            "Usaha keras membuahkan hasil.",
+            "Hidupmu adalah hasil dari keputusanmu.",
+            "Kesuksesan adalah proses, bukan tujuan.",
+            "Jadilah perubahan yang ingin kamu lihat di dunia.",
+            "Belajarlah dari kesalahanmu.",
+            "Kamu mampu melakukan lebih dari yang kamu bayangkan.",
+            "Setiap kegagalan adalah kesempatan untuk memulai lagi.",
+            "Semangat adalah kunci untuk membuka pintu kesuksesan.",
+            "Jangan takut untuk bermimpi besar.",
+            "Hiduplah seolah-olah setiap hari adalah hari terakhirmu.",
+            "Jadilah inspirasi bagi orang lain.",
+            "Kamu tidak sendiri dalam perjalanan ini.",
+            "Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras.",
+            "Kamu adalah arsitek dari masa depanmu.",
+            "Jangan menunggu kesempatan, ciptakan kesempatan.",
+            "Hari ini adalah hari yang baru untuk memulai.",
+            "Kamu memiliki kekuatan untuk mengubah hidupmu.",
+            "Rintangan adalah bagian dari perjalanan menuju kesuksesan.",
+            "Berani mengambil risiko adalah langkah pertama menuju kesuksesan.",
+            "Tetaplah berusaha, meskipun hasilnya belum terlihat.",
+            "Jangan pernah meremehkan dirimu sendiri.",
+            "Cita-citamu adalah peta jalan menuju kesuksesan.",
+            "Jangan bandingkan dirimu dengan orang lain.",
+            "Hargai setiap momen dalam hidupmu.",
+            "Kepositifan menarik hal-hal baik ke dalam hidupmu.",
+            "Jangan biarkan kegagalan menghalangi langkahmu.",
+            "Bersyukurlah untuk setiap pelajaran yang kamu terima.",
+            "Keberanian adalah kunci untuk membuka pintu peluang.",
+            "Setiap hari adalah kesempatan untuk belajar.",
+            "Kamu adalah satu-satunya yang bisa menghentikan dirimu.",
+            "Hidup ini singkat, buatlah setiap detik berarti.",
+            "Jadilah orang yang berani membuat perubahan.",
+            "Pikiran positif menciptakan realitas positif.",
+            "Kamu bisa mengatasi segala tantangan yang ada.",
+            "Jangan menunggu waktu yang tepat, buatlah waktu yang tepat.",
+            "Kualitas keputusanmu menentukan kualitas hidupmu.",
+            "Keberhasilan datang kepada mereka yang tidak menyerah.",
+            "Jangan takut untuk bertanya.",
+            "Setiap orang memiliki potensi yang luar biasa.",
+            "Jadilah pribadi yang bisa diandalkan.",
+            "Kamu memiliki hak untuk mengejar kebahagiaanmu.",
+            "Ketidakpastian adalah bagian dari proses.",
+            "Setiap hari adalah peluang baru untuk berhasil.",
+            "Hiduplah dengan penuh semangat dan keyakinan.",
+            "Jangan pernah ragu untuk mengejar impianmu.",
+            "Mimpi yang besar membutuhkan usaha yang besar.",
+            "Hargai perjalananmu, bukan hanya tujuanmu.",
+            "Cinta dan dukungan mengubah segalanya.",
+            "Kamu adalah pelukis kehidupanmu sendiri.",
+            "Bersikap baik pada dirimu sendiri.",
+            "Keberanian datang ketika kamu melangkah keluar dari zona nyaman.",
+            "Sukses adalah kemampuan untuk melanjutkan meskipun ada kegagalan.",
+            "Hargai usaha yang kamu lakukan, bukan hanya hasil akhirnya.",
+            "Kamu adalah pemimpin bagi dirimu sendiri.",
+            "Jadilah cahaya dalam kegelapan.",
+            "Keberhasilan adalah hasil dari persiapan yang baik.",
+            "Kamu berhak untuk mencapai semua yang kamu impikan.",
+            "Perubahan dimulai dari dirimu sendiri.",
+            "Jadilah pendengar yang baik.",
+            "Kreativitas adalah kunci untuk inovasi.",
+            "Jangan takut untuk gagal, takutlah untuk tidak mencoba.",
+            "Setiap langkah kecil adalah kemajuan.",
+            "Kamu lebih kuat dari semua tantangan yang kamu hadapi.",
+            "Tunjukkan rasa syukur dalam setiap hal kecil.",
+            "Kebaikan selalu membuahkan hasil.",
+            "Hidup adalah tentang membuat pilihan.",
+            "Setiap orang memiliki cerita uniknya sendiri.",
+            "Jangan ragu untuk meminta bantuan.",
+            "Berpikirlah positif dan hasilnya akan positif.",
+            "Hidup ini adalah anugerah, nikmati setiap momennya.",
+            "Kamu adalah pencipta nasibmu sendiri.",
+            "Jangan menyerah pada mimpi yang kamu impikan.",
+            "Kamu memiliki kekuatan untuk membuat perbedaan.",
+            "Teruslah belajar dan tumbuh.",
+            "Kamu tidak tahu seberapa kuat kamu sampai kamu diuji.",
+            "Jadilah yang terbaik dari dirimu setiap hari.",
+            "Tantangan adalah kesempatan untuk tumbuh.",
+            "Jangan menunggu untuk berbahagia, jadilah bahagia sekarang.",
+            "Bersyukurlah untuk segala hal yang kamu miliki.",
+            "Hidup ini tentang berbagi dan peduli.",
+            "Keberhasilan tidak diukur dari uang, tetapi dari dampak yang kamu buat.",
+            "Percayalah pada proses.",
+            "Kamu tidak sendirian dalam perjuangan ini.",
+            "Setiap detik adalah kesempatan untuk berubah.",
+            "Kamu bisa membuat perubahan yang positif di dunia ini."
+        ];
+
+        // Fungsi untuk menampilkan pesan motivasi secara acak
+        function showMotivation() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const messageElement = document.getElementById("motivationMessage");
+
+            // Menambahkan efek transisi
+            messageElement.classList.remove("show"); // Hapus kelas untuk memulai animasi
+            setTimeout(() => {
+                messageElement.textContent = messages[randomIndex];
+                messageElement.classList.add("show"); // Tambahkan kelas untuk efek muncul
+            }, 300);
+        }
+
+        // Event listener untuk tombol
+        document.getElementById("motivationButton").addEventListener("click", showMotivation);
+    </script>
+</body>
+</html>
